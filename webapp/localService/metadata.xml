@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference
+		Uri="http://sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference
+		Uri="http://sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference
+		Uri="http://sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"
+		xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="YC_RETAILER_SOLD_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="YC_RETAILER_SOLDType" sap:label="Items Sold per retailer" sap:content-version="1">
+				<Key><PropertyRef Name="sale_id"/></Key><Property Name="sale_id" Type="Edm.Guid" Nullable="false" sap:label="Key" sap:quickinfo="UUID serving as key (parent key, root key)"/><Property Name="retailerid" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Retailer ID" sap:value-list="standard"/><Property Name="sku" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="SKU" sap:quickinfo="Stock-keeping unit"/><Property Name="description" Type="Edm.String" MaxLength="40" sap:label="Description"/><Property Name="theme" Type="Edm.String" MaxLength="40" sap:label="Theme" sap:value-list="standard"/><Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by"
+					sap:quickinfo="Name of Person who Created the Object" sap:creatable="false" sap:updatable="false"/><Property Name="created_on" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created on"
+					sap:quickinfo="Date on which the record was created" sap:creatable="false" sap:updatable="false"/><Property Name="created_time" Type="Edm.Time" Precision="0" sap:label="Time"
+					sap:quickinfo="ABAP System Field: Current Time of Application Server" sap:creatable="false" sap:updatable="false"/><Property Name="changed_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by"
+					sap:quickinfo="Name of Person who Created the Object" sap:creatable="false" sap:updatable="false"/><Property Name="changed_on" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Last Changed on"
+					sap:quickinfo="Purchasing Document Item Change Date" sap:creatable="false" sap:updatable="false"/><Property Name="changed_time" Type="Edm.Time" Precision="0" sap:label="Time"
+					sap:quickinfo="ABAP System Field: Current Time of Application Server" sap:creatable="false" sap:updatable="false"/><NavigationProperty Name="to_Retailers" Relationship="YC_RETAILER_SOLD_CDS.assoc_0761D3F41AF0C0A577C3128289E8AD0F"
+					FromRole="FromRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F" ToRole="ToRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"/><NavigationProperty Name="to_Themes" Relationship="YC_RETAILER_SOLD_CDS.assoc_66D649A9FE55BEBC568C3D285F7DFC3D"
+					FromRole="FromRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D" ToRole="ToRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"/></EntityType>
+			<EntityType Name="YRETAILERSType" sap:content-version="1">
+				<Key><PropertyRef Name="RETAILERID"/></Key><Property Name="RETAILERID" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:label="Retailer ID"/><Property Name="RETAILERNAME" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Retailer Name"/></EntityType>
+			<EntityType Name="YTHEME_DETType" sap:content-version="1">
+				<Key><PropertyRef Name="THEME"/></Key><Property Name="THEME" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Theme"/><Property Name="THEME_DESC" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Theme Desc."/></EntityType>
+			<Association Name="assoc_66D649A9FE55BEBC568C3D285F7DFC3D" sap:content-version="1"><End Type="YC_RETAILER_SOLD_CDS.YC_RETAILER_SOLDType" Multiplicity="1" Role="FromRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"/><End Type="YC_RETAILER_SOLD_CDS.YTHEME_DETType" Multiplicity="1" Role="ToRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"><PropertyRef Name="THEME"/></Principal>
+					<Dependent Role="FromRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"><PropertyRef Name="theme"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_0761D3F41AF0C0A577C3128289E8AD0F" sap:content-version="1"><End Type="YC_RETAILER_SOLD_CDS.YC_RETAILER_SOLDType" Multiplicity="1" Role="FromRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"/><End Type="YC_RETAILER_SOLD_CDS.YRETAILERSType" Multiplicity="1" Role="ToRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"><PropertyRef Name="RETAILERID"/></Principal>
+					<Dependent Role="FromRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"><PropertyRef Name="retailerid"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="YC_RETAILER_SOLD_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="YC_RETAILER_SOLD" EntityType="YC_RETAILER_SOLD_CDS.YC_RETAILER_SOLDType" sap:content-version="1"/><EntitySet Name="YRETAILERS" EntityType="YC_RETAILER_SOLD_CDS.YRETAILERSType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:content-version="1"/><EntitySet Name="YTHEME_DET" EntityType="YC_RETAILER_SOLD_CDS.YTHEME_DETType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:content-version="1"/>
+				<AssociationSet Name="assoc_66D649A9FE55BEBC568C3D285F7DFC3D" Association="YC_RETAILER_SOLD_CDS.assoc_66D649A9FE55BEBC568C3D285F7DFC3D"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="YC_RETAILER_SOLD" Role="FromRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"/><End EntitySet="YTHEME_DET" Role="ToRole_assoc_66D649A9FE55BEBC568C3D285F7DFC3D"/></AssociationSet>
+				<AssociationSet Name="assoc_0761D3F41AF0C0A577C3128289E8AD0F" Association="YC_RETAILER_SOLD_CDS.assoc_0761D3F41AF0C0A577C3128289E8AD0F"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="YC_RETAILER_SOLD" Role="FromRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"/><End EntitySet="YRETAILERS" Role="ToRole_assoc_0761D3F41AF0C0A577C3128289E8AD0F"/></AssociationSet>
+			</EntityContainer>
+			<Annotations Target="YC_RETAILER_SOLD_CDS.YC_RETAILER_SOLDType/retailerid" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String=""/><PropertyValue Property="CollectionPath" String="YRETAILERS"/><PropertyValue Property="SearchSupported" Bool="false"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="retailerid"/><PropertyValue Property="ValueListProperty" String="RETAILERID"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="YC_RETAILER_SOLD_CDS.YC_RETAILER_SOLDType/theme" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String=""/><PropertyValue Property="CollectionPath" String="YTHEME_DET"/><PropertyValue Property="SearchSupported" Bool="false"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="theme"/><PropertyValue Property="ValueListProperty" String="THEME"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations><atom:link rel="self"
+				href="https://webidecp-a95fe0278.dispatcher.hana.ondemand.com/destinations/SAP_PPM/sap/opu/odata/sap/YC_RETAILER_SOLD_CDS/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link rel="latest-version"
+				href="https://webidecp-a95fe0278.dispatcher.hana.ondemand.com/destinations/SAP_PPM/sap/opu/odata/sap/YC_RETAILER_SOLD_CDS/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
